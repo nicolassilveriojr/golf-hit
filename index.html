@@ -2,58 +2,43 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Golf Hit Simples</title>
-  <style>
-    body { margin: 0; overflow: hidden; background: #77ccff; }
-    #hud {
-      position: absolute;
-      top: 10px; left: 10px;
-      color: white; font-family: sans-serif; font-size: 20px;
-      background: rgba(0,0,0,0.5);
-      padding: 8px 12px;
-      border-radius: 8px;
-      z-index: 10;
-    }
-    #winScreen {
-      display: none;
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      color: white; font-family: sans-serif; font-size: 24px;
-      background: rgba(0,0,0,0.8);
-      padding: 20px 40px;
-      border-radius: 10px;
-      text-align: center;
-      z-index: 20;
-    }
-    #stars {
-      font-size: 30px;
-      margin: 10px 0;
-    }
-    button {
-      font-size: 18px;
-      padding: 8px 16px;
-      cursor: pointer;
-      border: none;
-      background: #00cc88;
-      color: white;
-      border-radius: 6px;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Golf Cartoon</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <div id="hud">Tacadas: <span id="strokeCounter">0</span></div>
-
-  <div id="winScreen">
-    <h1>🏁 Fase Completa!</h1>
-    <div id="stars"></div>
-    <button onclick="nextLevel()">Próxima Fase</button>
+  <div id="hud">
+    <div class="hud-item">
+      <img src="coin.png" alt="Moedas" />
+      <span id="coins">0</span>
+    </div>
+    <div class="hud-item">
+      <img src="gem.png" alt="Gemas" />
+      <span id="gems">0</span>
+    </div>
+    <button id="resetBtn">🔄 Reiniciar</button>
   </div>
 
-  <audio id="hitSound" src="hit.wav"></audio>
-  <audio id="winSound" src="win.wav"></audio>
+  <div id="power-meter">
+    <div id="power-fill"></div>
+  </div>
 
-  <script type="module" src="main.js"></script>
+<div id="direction-arrow"></div>
+  <canvas id="game"></canvas>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r148/three.min.js"></script>
+  <script src="main.js"></script>
+
+  <div id="hud">
+  <p>Tacadas: <span id="shots">0</span></p>
+</div>
+
+<div id="win-screen">
+  <h1>Fase Concluída!</h1>
+  <p>Você ganhou:</p>
+  <div id="stars"></div>
+  <button onclick="nextLevel()">Próxima fase</button>
+</div>
+
 </body>
 </html>

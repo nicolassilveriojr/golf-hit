@@ -1,0 +1,96 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(to top, #4fd2d2, #a5f4f4);
+  font-family: sans-serif;
+}
+
+#game {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#hud {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: white;
+  font-size: 20px;
+  z-index: 10;
+}
+
+#win-screen {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  display: none;
+  z-index: 100;
+}
+
+#stars {
+  font-size: 32px;
+  margin: 10px 0;
+}
+
+
+.hud-item {
+  background: white;
+  border-radius: 8px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.hud-item img {
+  width: 20px;
+  height: 20px;
+}
+
+#resetBtn {
+  background: #f85a5a;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#power-meter {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  width: 200px;
+  height: 20px;
+  transform: translateX(-50%);
+  background: #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 10;
+}
+
+#power-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(to right, red, orange, yellow, limegreen);
+  transition: width 0.1s;
+}
+
+#direction-arrow {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  width: 100px;
+  height: 4px;
+  background: white;
+  transform-origin: left center;
+  transform: rotate(0deg);
+  z-index: 10;
+}
