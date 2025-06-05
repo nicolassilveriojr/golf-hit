@@ -1,9 +1,12 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
-import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/controls/OrbitControls.js';
 
-let scene, camera, renderer, ball, raycaster, mouse, isDragging = false, startDrag, velocity = new THREE.Vector3();
-let dragPlane, obstacles = [], goal, currentLevel = 0;
+let scene, camera, renderer;
+let ball, raycaster, mouse;
+let isDragging = false, startDrag, velocity = new THREE.Vector3();
+let dragPlane, obstacles = [], goal;
+let currentLevel = 0;
 const levels = [createLevel1, createLevel2];
+let cameraTarget = new THREE.Vector3();
 
 init();
 loadLevel(currentLevel);
@@ -14,7 +17,7 @@ function init() {
   scene.background = new THREE.Color(0xaeeeee);
 
   camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-  camera.position.set(0, 5, 10);
+  camera.position.set(0, 6, -10);
 
   renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -32,8 +35,6 @@ function init() {
   window.addEventListener('mousedown', onMouseDown);
   window.addEventListener('mousemove', onMouseMove);
   window.addEventListener('mouseup', onMouseUp);
-
-  controls = new OrbitControls(camera, renderer.domElement);
 }
 
 function loadLevel(levelIndex) {
@@ -57,7 +58,7 @@ function loadLevel(levelIndex) {
 
   velocity.set(0, 0, 0);
 
-  // Nível
+  // Nível específico
   levels[levelIndex]();
 }
 
@@ -117,7 +118,7 @@ function onMouseDown(event) {
 
 function onMouseMove(event) {
   if (isDragging) {
-    // opcional: desenhar uma linha
+    // linha guia opcional
   }
 }
 
@@ -143,11 +144,11 @@ function updateMouse(event) {
 function animate() {
   requestAnimationFrame(animate);
 
-  // Física
+  // Movimento da bola
   ball.position.add(velocity);
   velocity.multiplyScalar(0.95);
 
-  // Colisão com obstáculos
+  // Colisões com obstáculos
   obstacles.forEach(obj => {
     const dist = obj.position.distanceTo(ball.position);
     if (dist < 1) {
@@ -156,7 +157,7 @@ function animate() {
     }
   });
 
-  // Verifica objetivo
+  // Verifica vitória
   if (goal && ball.position.distanceTo(goal.position) < 0.5 && velocity.length() < 0.1) {
     if (currentLevel + 1 < levels.length) {
       currentLevel++;
@@ -168,6 +169,11 @@ function animate() {
     }
   }
 
-  camera.lookAt(ball.position);
+  // 🎥 Câmera segue suavemente a bola
+  const desiredPosition = ball.position.clone().add(new THREE.Vector3(0, 6, -10));
+  camera.position.lerp(desiredPosition, 0.1);
+  cameraTarget.lerp(ball.position, 0.1);
+  camera.lookAt(cameraTarget);
+
   renderer.render(scene, camera);
 }

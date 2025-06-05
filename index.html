@@ -1,15 +1,56 @@
-<!-- index.html -->
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Golf Hit Clone</title>
+  <title>Golf Hit Simples</title>
   <style>
-    body { margin: 0; overflow: hidden; }
-    canvas { display: block; }
+    body { margin: 0; overflow: hidden; background: #77ccff; }
+    #hud {
+      position: absolute;
+      top: 10px; left: 10px;
+      color: white; font-family: sans-serif; font-size: 20px;
+      background: rgba(0,0,0,0.5);
+      padding: 8px 12px;
+      border-radius: 8px;
+      z-index: 10;
+    }
+    #winScreen {
+      display: none;
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      color: white; font-family: sans-serif; font-size: 24px;
+      background: rgba(0,0,0,0.8);
+      padding: 20px 40px;
+      border-radius: 10px;
+      text-align: center;
+      z-index: 20;
+    }
+    #stars {
+      font-size: 30px;
+      margin: 10px 0;
+    }
+    button {
+      font-size: 18px;
+      padding: 8px 16px;
+      cursor: pointer;
+      border: none;
+      background: #00cc88;
+      color: white;
+      border-radius: 6px;
+    }
   </style>
 </head>
 <body>
+
+  <div id="hud">Tacadas: <span id="strokeCounter">0</span></div>
+
+  <div id="winScreen">
+    <h1>🏁 Fase Completa!</h1>
+    <div id="stars"></div>
+    <button onclick="nextLevel()">Próxima Fase</button>
+  </div>
+
   <script type="module" src="main.js"></script>
 </body>
 </html>
